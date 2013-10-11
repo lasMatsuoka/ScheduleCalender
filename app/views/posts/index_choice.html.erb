@@ -1,0 +1,50 @@
+<h1>Schedule</h1>
+
+<div id="notice"><%= notice %></div>
+
+<%= form_tag('create') do %>
+  <%= select_date  Date.new(@year, @month),  :use_month_numbers => true,
+                                             :discard_day       => true  %>
+  <%= submit_tag 'search' %>
+<% end %>
+<br />
+<%= link_to 'home', posts_path %> | <%= link_to 'New Schedule', new_post_path %>
+<br />
+<br />
+<%# カレンダー表示  %>
+<% (@first_day..@end_day).each do |day| %>
+  <table border = "1">
+    <tr>
+      <th width = "30px">
+        <%= link_to day, new_post_path %>
+      </th>
+      <td width = "1000px">
+        <table>
+          <% @posts.each do |post| %>
+            <% if post.date.to_i == @year.to_i %>
+              <% if post.price.to_i == @month.to_i %>  
+                <% if post.day.to_i == day.to_i %>
+                  <tr>
+                    <td>
+                      <%= link_to post.title, post_path(post) %>
+                      <%= post.name %>
+                      <%= link_to 'Edit', edit_post_path(post) %>
+                      <%= link_to 'del', post, :confirm => 'Sure?',
+                                               :method  => :delete %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            <% end %>
+         <% end %>
+        </table>
+      </td>
+    </tr>
+  </table>
+<% end %>
+<br />
+
+<%= link_to 'home', posts_path %> | <%= link_to 'New Schedule', new_post_path %>
+
+<script>
+$(function() {

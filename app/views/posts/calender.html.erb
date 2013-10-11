@@ -1,0 +1,31 @@
+<h1>Schedule</h1>
+
+<%= link_to 'home', posts_path %> | <%= link_to 'New Schedule', new_post_path %>
+
+<br />
+<br />
+
+<%# カレンダー表示  %>
+<% (@first_day..@end_day).each do |day| %>
+  <table border = "1" >
+    <tr>
+      <td width = "30px">
+        <%= link_to day, new_post_path %>
+      </td>
+      <td width = "1000px" >
+      <% @posts.each do |post| %>
+        <tr>
+          <td>
+            <%= link_to post.title, post_path(post) %>
+          </td>
+        </tr>
+      <% end %>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
+<br />
+<br />
+
+<%= link_to 'home', posts_path %> | <%= link_to 'New Schedule', new_post_path %>
